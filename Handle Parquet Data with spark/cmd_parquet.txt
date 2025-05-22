@@ -1,0 +1,133 @@
+Download parquet tools in your local to run all the below commands.
+Parquet tools can be downloaded using pip command.
+Run the below command in cmd or terminal
+pip install parquet-tools
+
+Run the blow command inside python
+import pyarrow as pa
+import pyarrow.parquet as pq
+
+parquet_file = pq.ParquetFile(r'C:\Users\shuvo\Desktop\Python-DataEngineering\flight_data_gz.parquet')
+parquet_file.metadata
+parquet_file.metadata.row_group(0) 
+parquet_file.metadata.row_group(0).column(0)
+parquet_file.metadata.row_group(0).column(0).statistics 
+
+Run the below command in cmd/terminal
+parquet-tools show  C:\Users\shuvo\Desktop\Python-DataEngineering\flight_data_gz.parquet
+parquet-tools inspect  (path of your file location as above)
+
+
+
+
+*******************************************CMD Output***************************************************
+
+C:\Users\shuvo>parquet-tools inspect C:\Users\shuvo\Desktop\Python-DataEngineering\flight_data_gz.parquet
+
+############ file meta data ############
+created_by: parquet-mr (build 32c46643845ea8a705c35d4ec8fc654cc8ff816d)
+num_columns: 3
+num_rows: 255
+num_row_groups: 1
+format_version: 1.0
+serialized_size: 658
+
+
+############ Columns ############
+DEST_COUNTRY_NAME
+ORIGIN_COUNTRY_NAME
+count
+
+############ Column(DEST_COUNTRY_NAME) ############
+name: DEST_COUNTRY_NAME
+path: DEST_COUNTRY_NAME
+max_definition_level: 1
+max_repetition_level: 0
+physical_type: BYTE_ARRAY
+logical_type: String
+converted_type (legacy): UTF8
+compression: GZIP (space_saved: 37%)
+
+############ Column(ORIGIN_COUNTRY_NAME) ############
+name: ORIGIN_COUNTRY_NAME
+path: ORIGIN_COUNTRY_NAME
+max_definition_level: 1
+max_repetition_level: 0
+physical_type: BYTE_ARRAY
+logical_type: String
+converted_type (legacy): UTF8
+compression: GZIP (space_saved: 39%)
+
+############ Column(count) ############
+name: count
+path: count
+max_definition_level: 1
+max_repetition_level: 0
+physical_type: INT64
+logical_type: None
+converted_type (legacy): NONE
+compression: GZIP (space_saved: 53%)
+
+
+C:\Users\shuvo>python
+Python 3.12.9 (tags/v3.12.9:fdb8142, Feb  4 2025, 15:27:58) [MSC v.1942 64 bit (AMD64)] on win32
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import pyarrow as pa
+>>> import pyarrow.parquet as pq
+>>>
+>>> parquet_file = pq.ParquetFile(r'C:\Users\shuvo\Desktop\Python-DataEngineering\flight_data_gz.parquet')
+>>> parquet_file.metadata
+<pyarrow._parquet.FileMetaData object at 0x0000022B04C303B0>
+  created_by: parquet-mr (build 32c46643845ea8a705c35d4ec8fc654cc8ff816d)
+  num_columns: 3
+  num_rows: 255
+  num_row_groups: 1
+  format_version: 1.0
+  serialized_size: 658
+>>> parquet_file.metadata.row_group(0)
+<pyarrow._parquet.RowGroupMetaData object at 0x0000022B04FAE700>
+  num_columns: 3
+  num_rows: 255
+  total_byte_size: 5642
+  sorting_columns: ()
+>>> parquet_file.metadata.row_group(0).column(0)
+<pyarrow._parquet.ColumnChunkMetaData object at 0x0000022B0688CE50>
+  file_offset: 4
+  file_path:
+  physical_type: BYTE_ARRAY
+  num_values: 255
+  path_in_schema: DEST_COUNTRY_NAME
+  is_stats_set: True
+  statistics:
+    <pyarrow._parquet.Statistics object at 0x0000022B252DEBB0>
+      has_min_max: True
+      min: Afghanistan
+      max: Vietnam
+      null_count: 0
+      distinct_count: None
+      num_values: 255
+      physical_type: BYTE_ARRAY
+      logical_type: String
+      converted_type (legacy): UTF8
+  compression: GZIP
+  encodings: ('PLAIN_DICTIONARY', 'RLE', 'BIT_PACKED')
+  has_dictionary_page: False
+  dictionary_page_offset: None
+  data_page_offset: 4
+  total_compressed_size: 1242
+  total_uncompressed_size: 1974
+>>> parquet_file.metadata.row_group(0).column(0).statistics
+<pyarrow._parquet.Statistics object at 0x0000022B252DECA0>
+  has_min_max: True
+  min: Afghanistan
+  max: Vietnam
+  null_count: 0
+  distinct_count: None
+  num_values: 255
+  physical_type: BYTE_ARRAY
+  logical_type: String
+  converted_type (legacy): UTF8
+>>>
+
+
+
